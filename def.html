@@ -1,0 +1,124 @@
+<!--1-->
+<button onclick="changeColor()">Change Background Color</button>
+
+<script>
+function changeColor() {
+    document.body.style.backgroundColor = 
+        document.body.style.backgroundColor === 'lightblue' ? 'white' : 'lightblue';
+}
+</script> <br><br><br>
+
+<button type="button" onclick='document.getElementById("image").src="./stock-photo-full-length-casual-portrait-of-handsome-tall-young-man-isolated-on-white-background-2214704849.jpg"'>Tall</button>
+    <img id="image" src="./stock-photo-full-length-casual-portrait-of-handsome-tall-young-man-isolated-on-white-background-2214704849.jpg" style="width:350px">
+    <button type="button" onclick="document.getElementById('image').src='Ethan_Crough,_male_dwarf.jpg'">Little</button>
+
+<!--2-->
+<h3>To-Do List</h3>
+<input type="text" id="taskInput">
+<button onclick="addTask()">Add Task</button>
+<ul id="taskList"></ul>
+
+<script>
+function addTask() {
+    var taskInput = document.getElementById('taskInput').value;
+    
+    var ul = document.getElementById('taskList');
+    var li = document.createElement('li');
+    li.appendChild(document.createTextNode(taskInput));
+    
+    var deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.onclick = function() { ul.removeChild(li); };
+    
+    li.appendChild(deleteBtn);
+    ul.appendChild(li);
+    
+    document.getElementById('taskInput').value = '';
+}
+</script>
+
+<!--3-->
+<h3>Number Sorting Tool</h3>
+<input type="text" id="numberInput"> <br>
+<button onclick="sortNumbers('asc')">Sort Ascending</button>
+<button onclick="sortNumbers('desc')">Sort Descending</button>
+<p id="sortedResult"></p>
+
+<script>
+function sortNumbers(order) {
+    var numbers = document.getElementById('numberInput').value.split(',').map(Number);
+    if (numbers.some(isNaN)) {
+        alert('Please enter valid numbers only.');
+        return;
+    }
+
+    numbers.sort(function(a, b) { return order === 'asc' ? a - b : b - a; });
+    document.getElementById('sortedResult').innerHTML = 'Sorted Numbers: ' + numbers.join(', ');
+}
+</script>
+
+<!--4-->
+<h3>Simple Calculator</h3>
+<input type="number" id="num1">
+<input type="number" id="num2">
+<button onclick="calculate('+')">+</button>
+<button onclick="calculate('-')">-</button>
+<button onclick="calculate('*')">*</button>
+<button onclick="calculate('/')">/</button>
+<button onclick="calculate('%')">%</button>
+<button onclick="calculate('**')">Power</button>
+<p id="calcResult"></p>
+
+<script>
+function calculate(operation) {
+    var num1 = parseFloat(document.getElementById('num1').value);
+    var num2 = parseFloat(document.getElementById('num2').value);
+    var result;
+    
+    if (isNaN(num1) || isNaN(num2)) {
+        alert('Please enter valid numbers.');
+        return;
+    }
+
+    switch (operation) {
+        case '+': result = num1 + num2; break;
+        case '-': result = num1 - num2; break;
+        case '*': result = num1 * num2; break;
+        case '/': result = num1 / num2; break;
+        case '%': result = num1 % num2; break;
+        case '**': result = Math.pow(num1, num2); break;
+        default: result = 'Invalid operation'; 
+    }
+
+    document.getElementById('calcResult').innerHTML = 'Result: ' + result;
+}
+</script>
+
+<!--5-->
+<h3>Car Tax Calculator</h3>
+<input type="number" id="carPrice">
+<button onclick="calculateTax()">Calculate Tax</button>
+<p id="taxResult"></p>
+
+<script>
+function calculateTax() {
+    var price = parseFloat(document.getElementById('carPrice').value);
+    var taxRate;
+
+    if (isNaN(price)) {
+        alert('Please enter a valid price.');
+        return;
+    }
+
+    if (price > 10000) {
+        taxRate = 0.25;
+    } else if (price >= 5000 && price <= 10000) {
+        taxRate = 0.20;
+    } else {
+        taxRate = 0.15;
+    }
+
+    var tax = price * taxRate;
+    document.getElementById('taxResult').innerHTML = 'Tax to be paid: $' + tax.toFixed(2);
+}
+</script>
